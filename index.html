@@ -40,6 +40,10 @@
             0% { width: 0%; }
             100% { width: 100%; }
         }
+        .modal-box {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
@@ -127,12 +131,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <button class="btn btn-primary btn-sm w-full download-btn" 
+                    <div class="mt-4 flex gap-2">
+                        <button class="btn btn-primary btn-sm flex-1 download-btn" 
                                 data-url="https://github.com/yazalim-silelim/Geniskapi/releases/download/Geni%C5%9FKap%C4%B1V2/GenisKapi.arama.apk"
                                 data-name="GenişKapı Browser"
                                 data-coin="3">
                             İndir
+                        </button>
+                        <button onclick="showAppDetails('GenişKapı Browser', 'Hızlı ve güvenli tarayıcı deneyimi sunar. Reklamsız ve hafif yapısıyla öne çıkar.', 'https://placehold.co/100x100/8b5cf6/white?text=GK+Browser')" class="btn btn-ghost btn-sm">
+                            Detay
                         </button>
                     </div>
                 </div>
@@ -151,44 +158,146 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <button class="btn btn-primary btn-sm w-full download-btn"
+                    <div class="mt-4 flex gap-2">
+                        <button class="btn btn-primary btn-sm flex-1 download-btn"
                                 data-url="https://github.com/yazalim-silelim/dinosaur-game/releases/download/Dinazor/Dinazorgame-debug.apk"
                                 data-name="Dinazor Oyunu RTX"
                                 data-coin="5">
                             İndir
                         </button>
+                        <button onclick="showAppDetails('Dinazor Oyunu RTX', 'RTX grafikleriyle Jurassic dünyasını keşfedin. Gerçek zamanlı ışıklandırma ve gölgelerle benzersiz bir deneyim.', 'https://placehold.co/100x100/ec4899/white?text=Dino+RTX')" class="btn btn-ghost btn-sm">
+                            Detay
+                        </button>
                     </div>
                 </div>
 
-                <!-- App 3 - Sample App -->
+                <!-- App 3 - Simple Keyboard -->
                 <div class="app-card glass-card rounded-xl p-4 shadow-lg">
                     <div class="flex items-start gap-4">
-                        <img src="https://placehold.co/100x100/3b82f6/white?text=GK+Music" alt="Music App" class="w-16 h-16 rounded-xl">
+                        <img src="https://placehold.co/100x100/3b82f6/white?text=Simple+KB" alt="Simple Keyboard" class="w-16 h-16 rounded-xl">
                         <div>
-                            <h3 class="font-bold text-lg">GenişKapı Müzik</h3>
-                            <p class="text-sm text-gray-400 mb-2">Sınırsız müzik keyfi</p>
+                            <h3 class="font-bold text-lg">Simple Keyboard</h3>
+                            <p class="text-sm text-gray-400 mb-2">Basit ve hafif klavye</p>
                             <div class="flex items-center gap-2">
-                                <div class="badge badge-sm">Müzik</div>
+                                <div class="badge badge-sm">Araç</div>
                                 <div class="badge badge-sm badge-primary">+2 Coin</div>
+                                <div class="text-yellow-400 text-sm">★ 4.3</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button class="btn btn-primary btn-sm flex-1 download-btn"
+                                data-url="https://f-droid.org/repo/rkr.simplekeyboard.inputmethod_120.apk"
+                                data-name="Simple Keyboard"
+                                data-coin="2">
+                            İndir
+                        </button>
+                        <button onclick="showAppDetails('Simple Keyboard', 'Sadece bir klavyeden fazlası değil. Küçük boyutu, ayarlanabilir yüksekliği ve reklamsız yapısıyla ideal klavye çözümü.\n\nÖzellikler:\n- Küçük boyut\n- Ayarlanabilir klavye yüksekliği\n- Özel tema renkleri\n- Minimum izinler\n- Reklamsız', 'https://placehold.co/100x100/3b82f6/white?text=Simple+KB')" class="btn btn-ghost btn-sm">
+                            Detay
+                        </button>
+                    </div>
+                </div>
+
+                <!-- App 4 - AnySoftKeyboard -->
+                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <img src="https://placehold.co/100x100/10b981/white?text=AnySoftKB" alt="AnySoftKeyboard" class="w-16 h-16 rounded-xl">
+                        <div>
+                            <h3 class="font-bold text-lg">AnySoftKeyboard</h3>
+                            <p class="text-sm text-gray-400 mb-2">Çok dilli akıllı klavye</p>
+                            <div class="flex items-center gap-2">
+                                <div class="badge badge-sm">Araç</div>
+                                <div class="badge badge-sm badge-primary">+4 Coin</div>
+                                <div class="text-yellow-400 text-sm">★ 4.6</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button class="btn btn-primary btn-sm flex-1 download-btn"
+                                data-url="https://f-droid.org/repo/com.menny.android.anysoftkeyboard_7137.apk"
+                                data-name="AnySoftKeyboard"
+                                data-coin="4">
+                            İndir
+                        </button>
+                        <button onclick="showAppDetails('AnySoftKeyboard', 'Dillerle dolu bir dünyada yaşıyoruz. Neden çoklu dilli klavye kullanmıyorsunuz?\n\nÖzellikler:\n- Çoklu dil desteği\n- Tamamlama sözlükleri\n- Çoklu dokunma desteği\n- Genişletme klavyesi\n- Hareket desteği\n- Tema desteği\n- Emoji klavye\n- Kullanıcı sözlüğü düzenleyici\n- İmleç hareket tuşları\n- ARM, x86 ve MIPS desteği\n- Ses girişi', 'https://placehold.co/100x100/10b981/white?text=AnySoftKB')" class="btn btn-ghost btn-sm">
+                            Detay
+                        </button>
+                    </div>
+                </div>
+
+                <!-- App 5 - Amaze -->
+                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <img src="https://placehold.co/100x100/f97316/white?text=Amaze" alt="Amaze File Manager" class="w-16 h-16 rounded-xl">
+                        <div>
+                            <h3 class="font-bold text-lg">Amaze</h3>
+                            <p class="text-sm text-gray-400 mb-2">Dosya yöneticisi</p>
+                            <div class="flex items-center gap-2">
+                                <div class="badge badge-sm">Araç</div>
+                                <div class="badge badge-sm badge-primary">+3 Coin</div>
+                                <div class="text-yellow-400 text-sm">★ 4.4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        <button class="btn btn-primary btn-sm flex-1 download-btn"
+                                data-url="https://f-droid.org/repo/com.amaze.filemanager_121.apk"
+                                data-name="Amaze"
+                                data-coin="3">
+                            İndir
+                        </button>
+                        <button onclick="showAppDetails('Amaze', 'Material Design kurallarına uygun açık kaynaklı dosya yöneticisi.\n\nÖzellikler:\n- Kesme, kopyalama, silme, sıkıştırma\n- Çoklu sekme desteği\n- Çoklu tema desteği\n- Hızlı gezinme çekmecesi\n- Uygulama yöneticisi\n- Kök erişimi (root)\n- AES şifreleme\n- Bulut servis desteği (SMB, SSH, FTP)\n- Dahili okuyucular (ZIP, RAR, APK)\n- FTP istemci desteği', 'https://placehold.co/100x100/f97316/white?text=Amaze')" class="btn btn-ghost btn-sm">
+                            Detay
+                        </button>
+                    </div>
+                </div>
+
+                <!-- App 6 - Firefox -->
+                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <img src="https://placehold.co/100x100/f97316/white?text=Firefox" alt="Firefox" class="w-16 h-16 rounded-xl">
+                        <div>
+                            <h3 class="font-bold text-lg">Firefox</h3>
+                            <p class="text-sm text-gray-400 mb-2">Gizlilik odaklı tarayıcı</p>
+                            <div class="flex items-center gap-2">
+                                <div class="badge badge-sm">İnternet</div>
+                                <div class="badge badge-sm badge-primary">+4 Coin</div>
                                 <div class="text-yellow-400 text-sm">★ 4.7</div>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <button class="btn btn-primary btn-sm w-full download-btn"
-                                data-url="#"
-                                data-name="GenişKapı Müzik"
-                                data-coin="2">
-                            Yakında
+                    <div class="mt-4 flex gap-2">
+                        <button class="btn btn-primary btn-sm flex-1 download-btn"
+                                data-url="https://github.com/mozilla-mobile/firefox-android/releases/download/klar-v125.3.0/klar-125.3.0-x86_64.apk"
+                                data-name="Firefox"
+                                data-coin="4">
+                            İndir
+                        </button>
+                        <button onclick="showAppDetails('Firefox', 'Mozilla tarafından geliştirilen, gizlilik odaklı popüler web tarayıcısı. Gelişmiş takip koruması ve eklenti desteği sunar.\n\nÖzellikler:\n- Gelişmiş takip koruması\n- Eklenti desteği\n- Senkronizasyon özelliği\n- Hafif ve hızlı\n- Açık kaynak kodlu', 'https://placehold.co/100x100/f97316/white?text=Firefox')" class="btn btn-ghost btn-sm">
+                            Detay
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Upload App Card -->
+        <div class="app-card glass-card rounded-xl p-4 shadow-lg border-2 border-dashed border-gray-600 hover:border-purple-500 transition-colors">
+            <div class="flex flex-col items-center justify-center h-full py-8 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <h3 class="font-bold text-lg mb-2">Uygulamanı Yükle</h3>
+                <p class="text-sm text-gray-400 mb-4">APK'nı gönder, mağazada yayınlayalım</p>
+                <a href="mailto:geniskapisirketi@gmail.com?subject=Uygulama Yükleme&body=Uygulama Adı:%0ABağlantı:%0AKategori:%0AAçıklama:" 
+                   class="btn btn-outline btn-accent btn-sm">
+                    Email Gönder
+                </a>
+            </div>
+        </div>
+
         <!-- Categories -->
-        <div class="mb-12">
+        <div class="mt-12">
             <h2 class="text-2xl font-bold mb-6">Kategoriler</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <button class="btn btn-outline btn-sm category-btn" data-category="game">🎮 Oyunlar</button>
@@ -197,41 +306,61 @@
                 <button class="btn btn-outline btn-sm category-btn" data-category="productivity">📈 Üretkenlik</button>
             </div>
         </div>
+    </div>
 
-        <!-- New Apps -->
-        <div class="mb-12">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">Yeni Eklenenler</h2>
-                <button class="btn btn-ghost btn-sm">Tümünü Gör</button>
+    <!-- App Details Modal -->
+    <dialog id="appDetailsModal" class="modal">
+        <div class="modal-box glass-card max-w-2xl">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="font-bold text-xl" id="detailAppName"></h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <div class="badge badge-sm" id="detailAppCategory"></div>
+                        <div class="text-yellow-400 text-sm" id="detailAppRating"></div>
+                    </div>
+                </div>
+                <div class="avatar">
+                    <div class="w-16 rounded-xl" id="detailAppIcon"></div>
+                </div>
             </div>
-            <div class="carousel rounded-box gap-4">
-                <div class="carousel-item">
-                    <div class="glass-card rounded-xl p-4 w-64">
-                        <img src="https://placehold.co/200x200/10b981/white?text=GK+Health" class="rounded-lg mb-3 w-full">
-                        <h3 class="font-bold">Sağlık Takip</h3>
-                        <p class="text-sm text-gray-400 mb-2">Fitness uygulaması</p>
-                        <button class="btn btn-primary btn-sm w-full">İncele</button>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="glass-card rounded-xl p-4 w-64">
-                        <img src="https://placehold.co/200x200/f97316/white?text=GK+Photo" class="rounded-lg mb-3 w-full">
-                        <h3 class="font-bold">Fotoğraf Düzenleme</h3>
-                        <p class="text-sm text-gray-400 mb-2">AI destekli editör</p>
-                        <button class="btn btn-primary btn-sm w-full">İncele</button>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="glass-card rounded-xl p-4 w-64">
-                        <img src="https://placehold.co/200x200/8b5cf6/white?text=GK+Chat" class="rounded-lg mb-3 w-full">
-                        <h3 class="font-bold">GenişKapı Chat</h3>
-                        <p class="text-sm text-gray-400 mb-2">Güvenli mesajlaşma</p>
-                        <button class="btn btn-primary btn-sm w-full">İncele</button>
-                    </div>
-                </div>
+            
+            <div class="divider"></div>
+            
+            <div class="mb-6">
+                <h4 class="font-bold mb-2">Açıklama</h4>
+                <p class="whitespace-pre-line" id="detailAppDescription"></p>
+            </div>
+            
+            <div class="modal-action">
+                <button class="btn btn-primary" onclick="document.getElementById('downloadFromDetail').click()">İndir</button>
+                <button onclick="appDetailsModal.close()" class="btn btn-ghost">Kapat</button>
+                <button id="downloadFromDetail" class="hidden download-btn"></button>
             </div>
         </div>
-    </div>
+    </dialog>
+
+    <!-- Download Modal -->
+    <dialog id="downloadModal" class="modal">
+        <div class="modal-box glass-card max-w-sm">
+            <h3 class="font-bold text-lg mb-2" id="downloadingAppName">Optimizasyon Yapılıyor</h3>
+            <p class="text-sm text-gray-400 mb-4" id="coinEarnText">+3 Coin kazanacaksınız</p>
+            
+            <div class="mb-4">
+                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                </div>
+            </div>
+            
+            <div class="flex justify-between text-sm mb-6">
+                <span>Hazırlanıyor...</span>
+                <span id="progressText">0%</span>
+            </div>
+            
+            <div class="modal-action">
+                <button onclick="cancelDownload()" class="btn btn-ghost">İptal</button>
+            </div>
+        </div>
+    </dialog>
 
     <!-- Upload Modal -->
     <dialog id="uploadModal" class="modal">
@@ -279,29 +408,6 @@
         </div>
     </dialog>
 
-    <!-- Download Modal -->
-    <dialog id="downloadModal" class="modal">
-        <div class="modal-box glass-card max-w-sm">
-            <h3 class="font-bold text-lg mb-2" id="downloadingAppName">Optimizasyon Yapılıyor</h3>
-            <p class="text-sm text-gray-400 mb-4" id="coinEarnText">+3 Coin kazanacaksınız</p>
-            
-            <div class="mb-4">
-                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                    <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
-                </div>
-            </div>
-            
-            <div class="flex justify-between text-sm mb-6">
-                <span>Hazırlanıyor...</span>
-                <span id="progressText">0%</span>
-            </div>
-            
-            <div class="modal-action">
-                <button onclick="cancelDownload()" class="btn btn-ghost">İptal</button>
-            </div>
-        </div>
-    </dialog>
-
     <!-- Floating Action Button -->
     <div class="fixed bottom-6 right-6 z-30 hidden sm:block">
         <div class="tooltip tooltip-left" data-tip="Uygulama Yükle">
@@ -323,6 +429,7 @@
         const coinBalanceElement = document.getElementById('coinBalance');
         const downloadModal = document.getElementById('downloadModal');
         const uploadModal = document.getElementById('uploadModal');
+        const appDetailsModal = document.getElementById('appDetailsModal');
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
         const downloadingAppName = document.getElementById('downloadingAppName');
@@ -366,6 +473,39 @@
         });
         
         // Functions
+        function showAppDetails(name, description, iconUrl) {
+            document.getElementById('detailAppName').textContent = name;
+            document.getElementById('detailAppDescription').textContent = description;
+            
+            // Set category based on name (simplified for demo)
+            let category = 'Araç';
+            if (name.includes('Oyun')) category = 'Oyun';
+            if (name.includes('Firefox') || name.includes('Browser')) category = 'İnternet';
+            
+            document.getElementById('detailAppCategory').textContent = category;
+            document.getElementById('detailAppRating').textContent = '★ ' + (4 + Math.random()).toFixed(1);
+            
+            // Set icon
+            const iconElement = document.getElementById('detailAppIcon');
+            iconElement.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = iconUrl;
+            img.alt = name;
+            img.className = 'w-full h-full object-cover';
+            iconElement.appendChild(img);
+            
+            // Set download button data
+            const downloadBtn = document.getElementById('downloadFromDetail');
+            const originalBtn = document.querySelector(`.download-btn[data-name="${name}"]`);
+            if (originalBtn) {
+                downloadBtn.setAttribute('data-name', originalBtn.getAttribute('data-name'));
+                downloadBtn.setAttribute('data-coin', originalBtn.getAttribute('data-coin'));
+                downloadBtn.setAttribute('data-url', originalBtn.getAttribute('data-url'));
+            }
+            
+            appDetailsModal.showModal();
+        }
+        
         function startDownload(appName, coinValue, url) {
             if (downloadInProgress) return;
             
@@ -465,7 +605,7 @@
             const apps = [
                 {name: "GenişKapı Browser", icon: "https://placehold.co/100x100/8b5cf6/white?text=GK+Browser"},
                 {name: "Dinazor Oyunu RTX", icon: "https://placehold.co/100x100/ec4899/white?text=Dino+RTX"},
-                {name: "GenişKapı Müzik", icon: "https://placehold.co/100x100/3b82f6/white?text=GK+Music"}
+                {name: "Simple Keyboard", icon: "https://placehold.co/100x100/3b82f6/white?text=Simple+KB"}
             ];
             
             const randomApp = apps[Math.floor(Math.random() * apps.length)];
@@ -485,7 +625,10 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Simulate download for random app
-                    startDownload(randomApp.name, "3", "#");
+                    const downloadBtn = document.querySelector(`.download-btn[data-name="${randomApp.name}"]`);
+                    if (downloadBtn) {
+                        downloadBtn.click();
+                    }
                 }
             });
         }
