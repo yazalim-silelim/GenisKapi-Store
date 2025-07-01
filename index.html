@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenişKapı Store | Resmi Uygulama Mağazası</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .app-card {
+            transition: all 0.3s ease;
+        }
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
+        }
+        .progress-bar {
+            animation: progress 3s linear forwards;
+        }
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <!-- Navbar -->
+    <div class="navbar bg-gray-800 sticky top-0 z-50 px-4">
+        <div class="flex-1">
+            <a class="btn btn-ghost text-xl gradient-text">GenişKapı Store</a>
+        </div>
+        <div class="flex-none gap-2">
+            <div class="form-control hidden sm:block">
+                <input type="text" placeholder="Uygulama ara..." class="input input-bordered bg-gray-700 w-36 md:w-64">
+            </div>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full bg-purple-600 flex items-center justify-center">
+                        <span class="font-bold">GK</span>
+                    </div>
+                </div>
+                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-gray-800 rounded-box w-52">
+                    <li><a>Profilim</a></li>
+                    <li><a id="coinBalance">Coinlerim: <span class="badge">85</span></a></li>
+                    <li><a onclick="showNotification()">Bildirimler</a></li>
+                    <li><a class="text-red-400">Çıkış Yap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="btm-nav sm:hidden bg-gray-800 z-40">
+        <button class="text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6" />
+            </svg>
+            <span class="btm-nav-label">Ana Sayfa</span>
+        </button>
+        <button class="text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span class="btm-nav-label">Ara</span>
+        </button>
+        <button onclick="showUploadModal()" class="text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            <span class="btm-nav-label">Yükle</span>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 pb-20">
+        <!-- Hero Banner -->
+        <div class="hero rounded-2xl mb-8 overflow-hidden">
+            <div class="hero-overlay bg-opacity-70 bg-gradient-to-r from-purple-900/80 to-pink-900/80"></div>
+            <div class="hero-content text-center py-12">
+                <div class="max-w-2xl">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 animate__animated animate__fadeInDown">Yeni Uygulamalar Keşfedin</h1>
+                    <p class="text-lg mb-6 animate__animated animate__fadeInUp animate__delay-1s">İndirin, Coin kazanın, dünyayı değiştirin!</p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <button onclick="showRandomApp()" class="btn btn-primary btn-wide">Şanslı Uygulama</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Apps -->
+        <div class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Öne Çıkanlar</h2>
+                <button class="btn btn-ghost btn-sm">Tümünü Gör</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- App 1 - Browser -->
+                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <img src="https://placehold.co/100x100/8b5cf6/white?text=GK+Browser" alt="GenişKapı Browser" class="w-16 h-16 rounded-xl">
+                        <div>
+                            <h3 class="font-bold text-lg">GenişKapı Browser</h3>
+                            <p class="text-sm text-gray-400 mb-2">Hızlı ve güvenli tarayıcı</p>
+                            <div class="flex items-center gap-2">
+                                <div class="badge badge-sm">Araç</div>
+                                <div class="badge badge-sm badge-primary">+3 Coin</div>
+                                <div class="text-yellow-400 text-sm">★ 4.5</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-primary btn-sm w-full download-btn" 
+                                data-url="https://github.com/yazalim-silelim/Geniskapi/releases/download/Geni%C5%9FKap%C4%B1V2/GenisKapi.arama.apk"
+                                data-name="GenişKapı Browser"
+                                data-coin="3">
+                            İndir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- App 2 - Dino Game -->
+                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <img src="https://placehold.co/100x100/ec4899/white?text=Dino+RTX" alt="Dino Game" class="w-16 h-16 rounded-xl">
+                        <div>
+                            <h3 class="font-bold text-lg">Dinazor Oyunu RTX</h3>
+                            <p class="text-sm text-gray-400 mb-2">RTX destekli Jurassic macera</p>
+                            <div class="flex items-center gap-2">
+                                <div class="badge badge-sm">Oyun</div>
+                                <div class="badge badge-sm badge-primary">+5 Coin</div>
+                                <div class="text-yellow-400 text-sm">★ 4.2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-primary btn-sm w-full download-btn"
+                                data-url="https://github.com/yazalim-silelim/dinosaur-game/releases/download/Dinazor/Dinazorgame-debug.apk"
+                                data-name="Dinazor Oyunu RTX"
+                                data-coin="5">
+                            İndir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- App 3 - Sample App -->
+                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <img src="https://placehold.co/100x100/3b82f6/white?text=GK+Music" alt="Music App" class="w-16 h-16 rounded-xl">
+                        <div>
+                            <h3 class="font-bold text-lg">GenişKapı Müzik</h3>
+                            <p class="text-sm text-gray-400 mb-2">Sınırsız müzik keyfi</p>
+                            <div class="flex items-center gap-2">
+                                <div class="badge badge-sm">Müzik</div>
+                                <div class="badge badge-sm badge-primary">+2 Coin</div>
+                                <div class="text-yellow-400 text-sm">★ 4.7</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-primary btn-sm w-full download-btn"
+                                data-url="#"
+                                data-name="GenişKapı Müzik"
+                                data-coin="2">
+                            Yakında
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">Kategoriler</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button class="btn btn-outline btn-sm category-btn" data-category="game">🎮 Oyunlar</button>
+                <button class="btn btn-outline btn-sm category-btn" data-category="tool">🛠️ Araçlar</button>
+                <button class="btn btn-outline btn-sm category-btn" data-category="social">👥 Sosyal</button>
+                <button class="btn btn-outline btn-sm category-btn" data-category="productivity">📈 Üretkenlik</button>
+            </div>
+        </div>
+
+        <!-- New Apps -->
+        <div class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Yeni Eklenenler</h2>
+                <button class="btn btn-ghost btn-sm">Tümünü Gör</button>
+            </div>
+            <div class="carousel rounded-box gap-4">
+                <div class="carousel-item">
+                    <div class="glass-card rounded-xl p-4 w-64">
+                        <img src="https://placehold.co/200x200/10b981/white?text=GK+Health" class="rounded-lg mb-3 w-full">
+                        <h3 class="font-bold">Sağlık Takip</h3>
+                        <p class="text-sm text-gray-400 mb-2">Fitness uygulaması</p>
+                        <button class="btn btn-primary btn-sm w-full">İncele</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="glass-card rounded-xl p-4 w-64">
+                        <img src="https://placehold.co/200x200/f97316/white?text=GK+Photo" class="rounded-lg mb-3 w-full">
+                        <h3 class="font-bold">Fotoğraf Düzenleme</h3>
+                        <p class="text-sm text-gray-400 mb-2">AI destekli editör</p>
+                        <button class="btn btn-primary btn-sm w-full">İncele</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="glass-card rounded-xl p-4 w-64">
+                        <img src="https://placehold.co/200x200/8b5cf6/white?text=GK+Chat" class="rounded-lg mb-3 w-full">
+                        <h3 class="font-bold">GenişKapı Chat</h3>
+                        <p class="text-sm text-gray-400 mb-2">Güvenli mesajlaşma</p>
+                        <button class="btn btn-primary btn-sm w-full">İncele</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <dialog id="uploadModal" class="modal">
+        <div class="modal-box glass-card max-w-2xl">
+            <h3 class="font-bold text-lg mb-4">Uygulama Yükle</h3>
+            <form id="uploadForm">
+                <div class="form-control mb-4">
+                    <label class="label">
+                        <span class="label-text">Uygulama Adı</span>
+                    </label>
+                    <input type="text" placeholder="Örnek: Harika Oyun" class="input input-bordered bg-gray-700 w-full" required>
+                </div>
+                
+                <div class="form-control mb-4">
+                    <label class="label">
+                        <span class="label-text">APK Dosyası</span>
+                    </label>
+                    <input type="file" class="file-input file-input-bordered bg-gray-700 w-full" accept=".apk" required>
+                </div>
+                
+                <div class="form-control mb-4">
+                    <label class="label">
+                        <span class="label-text">Kategori</span>
+                    </label>
+                    <select class="select select-bordered bg-gray-700 w-full">
+                        <option disabled selected>Seçiniz</option>
+                        <option>Oyun</option>
+                        <option>Araç</option>
+                        <option>Sosyal</option>
+                    </select>
+                </div>
+                
+                <div class="form-control mb-6">
+                    <label class="label">
+                        <span class="label-text">Açıklama</span>
+                    </label>
+                    <textarea class="textarea textarea-bordered bg-gray-700 h-24" placeholder="Uygulamanızı tanıtın..."></textarea>
+                </div>
+                
+                <div class="modal-action">
+                    <button type="button" onclick="uploadModal.close()" class="btn btn-ghost">İptal</button>
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Download Modal -->
+    <dialog id="downloadModal" class="modal">
+        <div class="modal-box glass-card max-w-sm">
+            <h3 class="font-bold text-lg mb-2" id="downloadingAppName">Optimizasyon Yapılıyor</h3>
+            <p class="text-sm text-gray-400 mb-4" id="coinEarnText">+3 Coin kazanacaksınız</p>
+            
+            <div class="mb-4">
+                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                </div>
+            </div>
+            
+            <div class="flex justify-between text-sm mb-6">
+                <span>Hazırlanıyor...</span>
+                <span id="progressText">0%</span>
+            </div>
+            
+            <div class="modal-action">
+                <button onclick="cancelDownload()" class="btn btn-ghost">İptal</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-6 right-6 z-30 hidden sm:block">
+        <div class="tooltip tooltip-left" data-tip="Uygulama Yükle">
+            <button onclick="showUploadModal()" class="btn btn-circle btn-primary btn-lg shadow-xl animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Global Variables
+        let coinBalance = 85;
+        let downloadInProgress = false;
+        let progressInterval;
+        
+        // DOM Elements
+        const coinBalanceElement = document.getElementById('coinBalance');
+        const downloadModal = document.getElementById('downloadModal');
+        const uploadModal = document.getElementById('uploadModal');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const downloadingAppName = document.getElementById('downloadingAppName');
+        const coinEarnText = document.getElementById('coinEarnText');
+        
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Download buttons
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const appName = this.getAttribute('data-name');
+                    const coinValue = this.getAttribute('data-coin');
+                    const url = this.getAttribute('data-url');
+                    
+                    if (url === '#') {
+                        Swal.fire({
+                            title: 'Yakında!',
+                            text: 'Bu uygulama henüz hazır değil',
+                            icon: 'info'
+                        });
+                        return;
+                    }
+                    
+                    startDownload(appName, coinValue, url);
+                });
+            });
+            
+            // Category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterByCategory(category);
+                });
+            });
+            
+            // Upload form
+            document.getElementById('uploadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                uploadApp();
+            });
+        });
+        
+        // Functions
+        function startDownload(appName, coinValue, url) {
+            if (downloadInProgress) return;
+            
+            downloadInProgress = true;
+            downloadingAppName.textContent = appName + " yükleniyor";
+            coinEarnText.textContent = `+${coinValue} Coin kazanacaksınız`;
+            
+            // Reset progress
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            
+            // Show modal
+            downloadModal.showModal();
+            
+            // Simulate download progress
+            let progress = 0;
+            progressInterval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 100) progress = 100;
+                
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${Math.floor(progress)}%`;
+                
+                if (progress === 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(() => {
+                        downloadModal.close();
+                        completeDownload(coinValue, url);
+                    }, 500);
+                }
+            }, 200);
+        }
+        
+        function cancelDownload() {
+            clearInterval(progressInterval);
+            downloadInProgress = false;
+            downloadModal.close();
+            Swal.fire('İndirme iptal edildi', '', 'info');
+        }
+        
+        function completeDownload(coinValue, url) {
+            downloadInProgress = false;
+            
+            // Add coins
+            coinBalance += parseInt(coinValue);
+            coinBalanceElement.innerHTML = `Coinlerim: <span class="badge">${coinBalance}</span>`;
+            
+            // Show success message
+            Swal.fire({
+                title: 'Başarılı!',
+                html: `+${coinValue} Coin kazandınız!<br>Toplam Coin: ${coinBalance}`,
+                icon: 'success'
+            });
+            
+            // Start actual download
+            setTimeout(() => {
+                window.location.href = url;
+            }, 1500);
+        }
+        
+        function showUploadModal() {
+            uploadModal.showModal();
+        }
+        
+        function uploadApp() {
+            uploadModal.close();
+            Swal.fire({
+                title: 'Başarılı!',
+                text: 'Uygulamanız incelenmek üzere gönderildi',
+                icon: 'success'
+            });
+        }
+        
+        function filterByCategory(category) {
+            // In a real app, this would filter the app list
+            Swal.fire({
+                title: `${category} kategorisi seçildi`,
+                text: 'Uygulamalar filtrelenecek',
+                icon: 'info'
+            });
+        }
+        
+        function showNotification() {
+            Swal.fire({
+                title: 'Bildirimler',
+                html: `
+                    <div class="text-left">
+                        <p class="py-2 border-b border-gray-700">Yeni sürüm mevcut!</p>
+                        <p class="py-2">Dinazor Oyunu güncellendi</p>
+                    </div>
+                `,
+                confirmButtonText: 'Tamam'
+            });
+        }
+        
+        function showRandomApp() {
+            const apps = [
+                {name: "GenişKapı Browser", icon: "https://placehold.co/100x100/8b5cf6/white?text=GK+Browser"},
+                {name: "Dinazor Oyunu RTX", icon: "https://placehold.co/100x100/ec4899/white?text=Dino+RTX"},
+                {name: "GenişKapı Müzik", icon: "https://placehold.co/100x100/3b82f6/white?text=GK+Music"}
+            ];
+            
+            const randomApp = apps[Math.floor(Math.random() * apps.length)];
+            
+            Swal.fire({
+                title: 'Şanslı Uygulamanız!',
+                html: `
+                    <div class="text-center py-4">
+                        <img src="${randomApp.icon}" class="w-20 h-20 mx-auto rounded-xl mb-4">
+                        <h3 class="font-bold text-lg">${randomApp.name}</h3>
+                        <p class="text-gray-400 mt-2">Bu uygulamayı indirmek ister misiniz?</p>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'İndir',
+                cancelButtonText: 'Vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Simulate download for random app
+                    startDownload(randomApp.name, "3", "#");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
