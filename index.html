@@ -1,637 +1,170 @@
-<!DOCTYPE html>
-<html lang="tr" data-theme="dark">
+<!doctype html>
+
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GenişKapı Store | Resmi Uygulama Mağazası</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        :root {
-            --primary: #8b5cf6;
-            --secondary: #ec4899;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .gradient-text {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .app-card {
-            transition: all 0.3s ease;
-        }
-        .app-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
-        }
-        .progress-bar {
-            animation: progress 3s linear forwards;
-        }
-        @keyframes progress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-        .modal-box {
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yapım Aşamasında — Buzlu Cam Tema</title>
+  <meta name="description" content="Buzlu cam (frosted glass) temalı 'Yapım Aşamasında' sayfası. Hızlıca kullanıma hazır, mobil uyumlu." />
+  <style>
+    :root{
+      --bg1:#0f172a; /* gece mavisi */
+      --bg2:#071029; /* koyu */
+      --accent: rgba(255,255,255,0.9);
+      --glass: rgba(255,255,255,0.08);
+      --glass-2: rgba(255,255,255,0.12);
+      --glass-border: rgba(255,255,255,0.18);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+    body{
+      display:flex;align-items:center;justify-content:center;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:var(--accent);
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+      padding:32px;
+      background-attachment:fixed;
+      overflow:hidden;
+    }/* Hafif doku arka plan */
+.grain{
+  position:fixed;inset:0;pointer-events:none;opacity:0.06;background-image:radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);background-size:3px 3px;mix-blend-mode:overlay;
+}
+
+.wrap{
+  width:min(960px,96%);
+  display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;
+}
+
+/* Mobilde tek kolon */
+@media (max-width:820px){
+  .wrap{grid-template-columns:1fr;}
+}
+
+.panel{
+  padding:28px;border-radius:18px;background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.02));
+  border:1px solid var(--glass-border);backdrop-filter:blur(10px) saturate(120%);
+  box-shadow:0 8px 30px rgba(2,6,23,0.6);
+}
+
+header h1{margin:0 0 8px;font-size:clamp(20px,3vw,32px);letter-spacing:0.6px}
+header p{margin:0;color:rgba(255,255,255,0.78)}
+
+.art{
+  display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;padding:36px;border-radius:16px;height:100%;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+/* İnşa ikonu */
+.gear{width:120px;height:120px;display:grid;place-items:center}
+.gear svg{width:100%;height:100%;filter:drop-shadow(0 6px 18px rgba(2,6,23,0.6));}
+
+/* Dönen dişli animasyonu */
+.spin{animation:spin 6s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+.shine-title{
+  display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.12));
+  box-shadow:0 6px 18px rgba(2,6,23,0.6) inset;
+  position:relative;overflow:hidden
+}
+.shine-title:after{
+  content:"";position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);animation:glint 3s linear infinite
+}
+@keyframes glint{to{transform:translateX(120%)}}
+
+.progress{height:12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));overflow:hidden;border:1px solid rgba(255,255,255,0.04)}
+.progress > i{display:block;height:100%;width:0%;background:linear-gradient(90deg, rgba(255,255,255,0.14), rgba(255,255,255,0.24));transition:width 800ms cubic-bezier(.2,.9,.2,1)}
+
+/* Form */
+.notify{display:flex;gap:8px;margin-top:14px}
+.notify input{flex:1;padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--accent);outline:none}
+.notify button{padding:10px 14px;border-radius:999px;border:none;background:rgba(255,255,255,0.14);backdrop-filter:blur(4px);cursor:pointer}
+.notify button:active{transform:translateY(1px)}
+
+.meta{margin-top:18px;color:rgba(255,255,255,0.6);font-size:14px}
+
+/* Alt not */
+footer{grid-column:1/-1;margin-top:12px;text-align:center;color:rgba(255,255,255,0.5);font-size:13px}
+
+.particles{position:fixed;inset:0;pointer-events:none;mix-blend-mode:screen}
+.p{position:absolute;border-radius:50%;opacity:0.9;background:rgba(255,255,255,0.04);backdrop-filter:blur(2px)}
+
+  </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-    <!-- Navbar -->
-    <div class="navbar bg-gray-800 sticky top-0 z-50 px-4">
-        <div class="flex-1">
-            <a class="btn btn-ghost text-xl gradient-text">GenişKapı Store</a>
-        </div>
-        <div class="flex-none gap-2">
-            <div class="form-control hidden sm:block">
-                <input type="text" placeholder="Uygulama ara..." class="input input-bordered bg-gray-700 w-36 md:w-64">
-            </div>
-            <div class="dropdown dropdown-end">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                    <div class="w-10 rounded-full bg-purple-600 flex items-center justify-center">
-                        <span class="font-bold">GK</span>
-                    </div>
-                </div>
-                <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-gray-800 rounded-box w-52">
-                    <li><a>Profilim</a></li>
-                    <li><a id="coinBalance">Coinlerim: <span class="badge">85</span></a></li>
-                    <li><a onclick="showNotification()">Bildirimler</a></li>
-                    <li><a class="text-red-400">Çıkış Yap</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<body>
+  <div class="grain"></div>
+  <div class="particles" aria-hidden="true">
+    <!-- birkaç hafif buz partikülü (sadece dekoratif) -->
+    <span class="p" style="width:14px;height:14px;left:8%;top:12%;transform:translateY(0);"></span>
+    <span class="p" style="width:8px;height:8px;left:72%;top:20%;"></span>
+    <span class="p" style="width:22px;height:22px;left:52%;top:68%;"></span>
+    <span class="p" style="width:10px;height:10px;left:28%;top:44%;"></span>
+  </div>  <main class="wrap">
+    <section class="panel">
+      <header>
 
-    <!-- Mobile Menu -->
-    <div class="btm-nav sm:hidden bg-gray-800 z-40">
-        <button class="text-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6" />
-            </svg>
-            <span class="btm-nav-label">Ana Sayfa</span>
-        </button>
-        <button class="text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <span class="btm-nav-label">Ara</span>
-        </button>
-        <button onclick="showUploadModal()" class="text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            <span class="btm-nav-label">Yükle</span>
-        </button>
-    </div>
+    </form>
+<aside class="art panel">
+  <div class="gear spin" aria-hidden="true">
+    <!-- Basit inşa ikonu: vidalı dişli + tornavida -->
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 7v6" stroke="white" stroke-opacity="0.9" stroke-width="2.8" stroke-linecap="round"/>
+      <circle cx="32" cy="32" r="12" stroke="white" stroke-opacity="0.9" stroke-width="2.6"></circle>
+      <path d="M32 20v-4" stroke="white" stroke-opacity="0.8" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M44 28l8-4" stroke="white" stroke-opacity="0.85" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M12 44l6 6" stroke="white" stroke-opacity="0.85" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </div>
 
-    <!-- Main Content -->
-    <div class="container mx-auto px-4 py-8 pb-20">
-        <!-- Hero Banner -->
-        <div class="hero rounded-2xl mb-8 overflow-hidden">
-            <div class="hero-overlay bg-opacity-70 bg-gradient-to-r from-purple-900/80 to-pink-900/80"></div>
-            <div class="hero-content text-center py-12">
-                <div class="max-w-2xl">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4 animate__animated animate__fadeInDown">Yeni Uygulamalar Keşfedin</h1>
-                    <p class="text-lg mb-6 animate__animated animate__fadeInUp animate__delay-1s">İndirin, Coin kazanın, dünyayı değiştirin!</p>
-                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
-                        <button onclick="showRandomApp()" class="btn btn-primary btn-wide">Şanslı Uygulama</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div style="text-align:center">
+    <h3 style="margin:6px 0 0">Çok yakında</h3>
+    <p style="opacity:0.8;margin:6px 0 0">İçerik hazırlanıyor — sabrın için teşekkürler.</p>
+  </div>
 
-        <!-- Featured Apps -->
-        <div class="mb-12">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">Öne Çıkanlar</h2>
-                <button class="btn btn-ghost btn-sm">Tümünü Gör</button>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- App 1 - Browser -->
-                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
-                    <div class="flex items-start gap-4">
-                        <img src="https://placehold.co/100x100/8b5cf6/white?text=GK+Browser" alt="GenişKapı Browser" class="w-16 h-16 rounded-xl">
-                        <div>
-                            <h3 class="font-bold text-lg">GenişKapı Browser</h3>
-                            <p class="text-sm text-gray-400 mb-2">Hızlı ve güvenli tarayıcı</p>
-                            <div class="flex items-center gap-2">
-                                <div class="badge badge-sm">Araç</div>
-                                <div class="badge badge-sm badge-primary">+3 Coin</div>
-                                <div class="text-yellow-400 text-sm">★ 4.5</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button class="btn btn-primary btn-sm flex-1 download-btn" 
-                                data-url="https://github.com/yazalim-silelim/Geniskapi/releases/download/Geni%C5%9FKap%C4%B1V2/GenisKapi.arama.apk"
-                                data-name="GenişKapı Browser"
-                                data-coin="3">
-                            İndir
-                        </button>
-                        <button onclick="showAppDetails('GenişKapı Browser', 'Hızlı ve güvenli tarayıcı deneyimi sunar. Reklamsız ve hafif yapısıyla öne çıkar.', 'https://placehold.co/100x100/8b5cf6/white?text=GK+Browser')" class="btn btn-ghost btn-sm">
-                            Detay
-                        </button>
-                    </div>
-                </div>
+</aside>
 
-                <!-- App 2 - Dino Game -->
-                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
-                    <div class="flex items-start gap-4">
-                        <img src="https://placehold.co/100x100/ec4899/white?text=Dino+RTX" alt="Dino Game" class="w-16 h-16 rounded-xl">
-                        <div>
-                            <h3 class="font-bold text-lg">Dinazor Oyunu RTX</h3>
-                            <p class="text-sm text-gray-400 mb-2">RTX destekli Jurassic macera</p>
-                            <div class="flex items-center gap-2">
-                                <div class="badge badge-sm">Oyun</div>
-                                <div class="badge badge-sm badge-primary">+5 Coin</div>
-                                <div class="text-yellow-400 text-sm">★ 4.2</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button class="btn btn-primary btn-sm flex-1 download-btn"
-                                data-url="https://github.com/yazalim-silelim/dinosaur-game/releases/download/Dinazor/Dinazorgame-debug.apk"
-                                data-name="Dinazor Oyunu RTX"
-                                data-coin="5">
-                            İndir
-                        </button>
-                        <button onclick="showAppDetails('Dinazor Oyunu RTX', 'RTX grafikleriyle Jurassic dünyasını keşfedin. Gerçek zamanlı ışıklandırma ve gölgelerle benzersiz bir deneyim.', 'https://placehold.co/100x100/ec4899/white?text=Dino+RTX')" class="btn btn-ghost btn-sm">
-                            Detay
-                        </button>
-                    </div>
-                </div>
+<footer>© <span id="year"></span> GenişKapı Şirketi — Tüm hakları saklıdır</footer>
 
-                <!-- App 3 - Simple Keyboard -->
-                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
-                    <div class="flex items-start gap-4">
-                        <img src="https://placehold.co/100x100/3b82f6/white?text=Simple+KB" alt="Simple Keyboard" class="w-16 h-16 rounded-xl">
-                        <div>
-                            <h3 class="font-bold text-lg">Simple Keyboard</h3>
-                            <p class="text-sm text-gray-400 mb-2">Basit ve hafif klavye</p>
-                            <div class="flex items-center gap-2">
-                                <div class="badge badge-sm">Araç</div>
-                                <div class="badge badge-sm badge-primary">+2 Coin</div>
-                                <div class="text-yellow-400 text-sm">★ 4.3</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button class="btn btn-primary btn-sm flex-1 download-btn"
-                                data-url="https://f-droid.org/repo/rkr.simplekeyboard.inputmethod_120.apk"
-                                data-name="Simple Keyboard"
-                                data-coin="2">
-                            İndir
-                        </button>
-                        <button onclick="showAppDetails('Simple Keyboard', 'Sadece bir klavyeden fazlası değil. Küçük boyutu, ayarlanabilir yüksekliği ve reklamsız yapısıyla ideal klavye çözümü.\n\nÖzellikler:\n- Küçük boyut\n- Ayarlanabilir klavye yüksekliği\n- Özel tema renkleri\n- Minimum izinler\n- Reklamsız', 'https://placehold.co/100x100/3b82f6/white?text=Simple+KB')" class="btn btn-ghost btn-sm">
-                            Detay
-                        </button>
-                    </div>
-                </div>
+  </main>  <script>
+    // Basit progress animasyonu ve ETA hesaplama
+    (function(){
+      const bar = document.getElementById('bar');
+      const eta = document.getElementById('eta');
+      const year = document.getElementById('year');
+      year.textContent = new Date().getFullYear();
 
-                <!-- App 4 - AnySoftKeyboard -->
-                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
-                    <div class="flex items-start gap-4">
-                        <img src="https://placehold.co/100x100/10b981/white?text=AnySoftKB" alt="AnySoftKeyboard" class="w-16 h-16 rounded-xl">
-                        <div>
-                            <h3 class="font-bold text-lg">AnySoftKeyboard</h3>
-                            <p class="text-sm text-gray-400 mb-2">Çok dilli akıllı klavye</p>
-                            <div class="flex items-center gap-2">
-                                <div class="badge badge-sm">Araç</div>
-                                <div class="badge badge-sm badge-primary">+4 Coin</div>
-                                <div class="text-yellow-400 text-sm">★ 4.6</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button class="btn btn-primary btn-sm flex-1 download-btn"
-                                data-url="https://f-droid.org/repo/com.menny.android.anysoftkeyboard_7137.apk"
-                                data-name="AnySoftKeyboard"
-                                data-coin="4">
-                            İndir
-                        </button>
-                        <button onclick="showAppDetails('AnySoftKeyboard', 'Dillerle dolu bir dünyada yaşıyoruz. Neden çoklu dilli klavye kullanmıyorsunuz?\n\nÖzellikler:\n- Çoklu dil desteği\n- Tamamlama sözlükleri\n- Çoklu dokunma desteği\n- Genişletme klavyesi\n- Hareket desteği\n- Tema desteği\n- Emoji klavye\n- Kullanıcı sözlüğü düzenleyici\n- İmleç hareket tuşları\n- ARM, x86 ve MIPS desteği\n- Ses girişi', 'https://placehold.co/100x100/10b981/white?text=AnySoftKB')" class="btn btn-ghost btn-sm">
-                            Detay
-                        </button>
-                    </div>
-                </div>
+      let pct = 0; // başlangıç
+      const target = 62 + Math.floor(Math.random()*30); // 62-91 arası demo tamamlanma
+      const start = Date.now();
+      const duration = 2500 + Math.random()*2000;
 
-                <!-- App 5 - Amaze -->
-                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
-                    <div class="flex items-start gap-4">
-                        <img src="https://placehold.co/100x100/f97316/white?text=Amaze" alt="Amaze File Manager" class="w-16 h-16 rounded-xl">
-                        <div>
-                            <h3 class="font-bold text-lg">Amaze</h3>
-                            <p class="text-sm text-gray-400 mb-2">Dosya yöneticisi</p>
-                            <div class="flex items-center gap-2">
-                                <div class="badge badge-sm">Araç</div>
-                                <div class="badge badge-sm badge-primary">+3 Coin</div>
-                                <div class="text-yellow-400 text-sm">★ 4.4</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button class="btn btn-primary btn-sm flex-1 download-btn"
-                                data-url="https://f-droid.org/repo/com.amaze.filemanager_121.apk"
-                                data-name="Amaze"
-                                data-coin="3">
-                            İndir
-                        </button>
-                        <button onclick="showAppDetails('Amaze', 'Material Design kurallarına uygun açık kaynaklı dosya yöneticisi.\n\nÖzellikler:\n- Kesme, kopyalama, silme, sıkıştırma\n- Çoklu sekme desteği\n- Çoklu tema desteği\n- Hızlı gezinme çekmecesi\n- Uygulama yöneticisi\n- Kök erişimi (root)\n- AES şifreleme\n- Bulut servis desteği (SMB, SSH, FTP)\n- Dahili okuyucular (ZIP, RAR, APK)\n- FTP istemci desteği', 'https://placehold.co/100x100/f97316/white?text=Amaze')" class="btn btn-ghost btn-sm">
-                            Detay
-                        </button>
-                    </div>
-                </div>
+      function step(){
+        pct += (target - pct) * 0.12;
+        if(Math.abs(target - pct) < 0.4) pct = target;
+        bar.style.width = Math.min(100, pct) + '%';
+        const remainingMs = Math.max(0,(1 - pct/100) * 7 * 24 * 3600 * 1000); // gösterişli: haftalar
+        const days = Math.ceil(remainingMs / (24*3600*1000));
+        eta.textContent = (pct>=100)? 'Tamamlandı' : (days>30? days+' gün' : days+' gün');
+        if(pct < target) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
 
-                <!-- App 6 - Firefox -->
-                <div class="app-card glass-card rounded-xl p-4 shadow-lg">
-                    <div class="flex items-start gap-4">
-                        <img src="https://placehold.co/100x100/f97316/white?text=Firefox" alt="Firefox" class="w-16 h-16 rounded-xl">
-                        <div>
-                            <h3 class="font-bold text-lg">Firefox</h3>
-                            <p class="text-sm text-gray-400 mb-2">Gizlilik odaklı tarayıcı</p>
-                            <div class="flex items-center gap-2">
-                                <div class="badge badge-sm">İnternet</div>
-                                <div class="badge badge-sm badge-primary">+4 Coin</div>
-                                <div class="text-yellow-400 text-sm">★ 4.7</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <button class="btn btn-primary btn-sm flex-1 download-btn"
-                                data-url="https://github.com/mozilla-mobile/firefox-android/releases/download/klar-v125.3.0/klar-125.3.0-x86_64.apk"
-                                data-name="Firefox"
-                                data-coin="4">
-                            İndir
-                        </button>
-                        <button onclick="showAppDetails('Firefox', 'Mozilla tarafından geliştirilen, gizlilik odaklı popüler web tarayıcısı. Gelişmiş takip koruması ve eklenti desteği sunar.\n\nÖzellikler:\n- Gelişmiş takip koruması\n- Eklenti desteği\n- Senkronizasyon özelliği\n- Hafif ve hızlı\n- Açık kaynak kodlu', 'https://placehold.co/100x100/f97316/white?text=Firefox')" class="btn btn-ghost btn-sm">
-                            Detay
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Upload App Card -->
-        <div class="app-card glass-card rounded-xl p-4 shadow-lg border-2 border-dashed border-gray-600 hover:border-purple-500 transition-colors">
-            <div class="flex flex-col items-center justify-center h-full py-8 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-                <h3 class="font-bold text-lg mb-2">Uygulamanı Yükle</h3>
-                <p class="text-sm text-gray-400 mb-4">APK'nı gönder, mağazada yayınlayalım</p>
-                <a href="mailto:geniskapisirketi@gmail.com?subject=Uygulama Yükleme&body=Uygulama Adı:%0ABağlantı:%0AKategori:%0AAçıklama:" 
-                   class="btn btn-outline btn-accent btn-sm">
-                    Email Gönder
-                </a>
-            </div>
-        </div>
-
-        <!-- Categories -->
-        <div class="mt-12">
-            <h2 class="text-2xl font-bold mb-6">Kategoriler</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <button class="btn btn-outline btn-sm category-btn" data-category="game">🎮 Oyunlar</button>
-                <button class="btn btn-outline btn-sm category-btn" data-category="tool">🛠️ Araçlar</button>
-                <button class="btn btn-outline btn-sm category-btn" data-category="social">👥 Sosyal</button>
-                <button class="btn btn-outline btn-sm category-btn" data-category="productivity">📈 Üretkenlik</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- App Details Modal -->
-    <dialog id="appDetailsModal" class="modal">
-        <div class="modal-box glass-card max-w-2xl">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <h3 class="font-bold text-xl" id="detailAppName"></h3>
-                    <div class="flex items-center gap-2 mt-2">
-                        <div class="badge badge-sm" id="detailAppCategory"></div>
-                        <div class="text-yellow-400 text-sm" id="detailAppRating"></div>
-                    </div>
-                </div>
-                <div class="avatar">
-                    <div class="w-16 rounded-xl" id="detailAppIcon"></div>
-                </div>
-            </div>
-            
-            <div class="divider"></div>
-            
-            <div class="mb-6">
-                <h4 class="font-bold mb-2">Açıklama</h4>
-                <p class="whitespace-pre-line" id="detailAppDescription"></p>
-            </div>
-            
-            <div class="modal-action">
-                <button class="btn btn-primary" onclick="document.getElementById('downloadFromDetail').click()">İndir</button>
-                <button onclick="appDetailsModal.close()" class="btn btn-ghost">Kapat</button>
-                <button id="downloadFromDetail" class="hidden download-btn"></button>
-            </div>
-        </div>
-    </dialog>
-
-    <!-- Download Modal -->
-    <dialog id="downloadModal" class="modal">
-        <div class="modal-box glass-card max-w-sm">
-            <h3 class="font-bold text-lg mb-2" id="downloadingAppName">Optimizasyon Yapılıyor</h3>
-            <p class="text-sm text-gray-400 mb-4" id="coinEarnText">+3 Coin kazanacaksınız</p>
-            
-            <div class="mb-4">
-                <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
-                    <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
-                </div>
-            </div>
-            
-            <div class="flex justify-between text-sm mb-6">
-                <span>Hazırlanıyor...</span>
-                <span id="progressText">0%</span>
-            </div>
-            
-            <div class="modal-action">
-                <button onclick="cancelDownload()" class="btn btn-ghost">İptal</button>
-            </div>
-        </div>
-    </dialog>
-
-    <!-- Upload Modal -->
-    <dialog id="uploadModal" class="modal">
-        <div class="modal-box glass-card max-w-2xl">
-            <h3 class="font-bold text-lg mb-4">Uygulama Yükle</h3>
-            <form id="uploadForm">
-                <div class="form-control mb-4">
-                    <label class="label">
-                        <span class="label-text">Uygulama Adı</span>
-                    </label>
-                    <input type="text" placeholder="Örnek: Harika Oyun" class="input input-bordered bg-gray-700 w-full" required>
-                </div>
-                
-                <div class="form-control mb-4">
-                    <label class="label">
-                        <span class="label-text">APK Dosyası</span>
-                    </label>
-                    <input type="file" class="file-input file-input-bordered bg-gray-700 w-full" accept=".apk" required>
-                </div>
-                
-                <div class="form-control mb-4">
-                    <label class="label">
-                        <span class="label-text">Kategori</span>
-                    </label>
-                    <select class="select select-bordered bg-gray-700 w-full">
-                        <option disabled selected>Seçiniz</option>
-                        <option>Oyun</option>
-                        <option>Araç</option>
-                        <option>Sosyal</option>
-                    </select>
-                </div>
-                
-                <div class="form-control mb-6">
-                    <label class="label">
-                        <span class="label-text">Açıklama</span>
-                    </label>
-                    <textarea class="textarea textarea-bordered bg-gray-700 h-24" placeholder="Uygulamanızı tanıtın..."></textarea>
-                </div>
-                
-                <div class="modal-action">
-                    <button type="button" onclick="uploadModal.close()" class="btn btn-ghost">İptal</button>
-                    <button type="submit" class="btn btn-primary">Gönder</button>
-                </div>
-            </form>
-        </div>
-    </dialog>
-
-    <!-- Floating Action Button -->
-    <div class="fixed bottom-6 right-6 z-30 hidden sm:block">
-        <div class="tooltip tooltip-left" data-tip="Uygulama Yükle">
-            <button onclick="showUploadModal()" class="btn btn-circle btn-primary btn-lg shadow-xl animate-bounce">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-            </button>
-        </div>
-    </div>
-
-    <script>
-        // Global Variables
-        let coinBalance = 85;
-        let downloadInProgress = false;
-        let progressInterval;
-        
-        // DOM Elements
-        const coinBalanceElement = document.getElementById('coinBalance');
-        const downloadModal = document.getElementById('downloadModal');
-        const uploadModal = document.getElementById('uploadModal');
-        const appDetailsModal = document.getElementById('appDetailsModal');
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
-        const downloadingAppName = document.getElementById('downloadingAppName');
-        const coinEarnText = document.getElementById('coinEarnText');
-        
-        // Initialize event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Download buttons
-            document.querySelectorAll('.download-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const appName = this.getAttribute('data-name');
-                    const coinValue = this.getAttribute('data-coin');
-                    const url = this.getAttribute('data-url');
-                    
-                    if (url === '#') {
-                        Swal.fire({
-                            title: 'Yakında!',
-                            text: 'Bu uygulama henüz hazır değil',
-                            icon: 'info'
-                        });
-                        return;
-                    }
-                    
-                    startDownload(appName, coinValue, url);
-                });
-            });
-            
-            // Category buttons
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    filterByCategory(category);
-                });
-            });
-            
-            // Upload form
-            document.getElementById('uploadForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                uploadApp();
-            });
-        });
-        
-        // Functions
-        function showAppDetails(name, description, iconUrl) {
-            document.getElementById('detailAppName').textContent = name;
-            document.getElementById('detailAppDescription').textContent = description;
-            
-            // Set category based on name (simplified for demo)
-            let category = 'Araç';
-            if (name.includes('Oyun')) category = 'Oyun';
-            if (name.includes('Firefox') || name.includes('Browser')) category = 'İnternet';
-            
-            document.getElementById('detailAppCategory').textContent = category;
-            document.getElementById('detailAppRating').textContent = '★ ' + (4 + Math.random()).toFixed(1);
-            
-            // Set icon
-            const iconElement = document.getElementById('detailAppIcon');
-            iconElement.innerHTML = '';
-            const img = document.createElement('img');
-            img.src = iconUrl;
-            img.alt = name;
-            img.className = 'w-full h-full object-cover';
-            iconElement.appendChild(img);
-            
-            // Set download button data
-            const downloadBtn = document.getElementById('downloadFromDetail');
-            const originalBtn = document.querySelector(`.download-btn[data-name="${name}"]`);
-            if (originalBtn) {
-                downloadBtn.setAttribute('data-name', originalBtn.getAttribute('data-name'));
-                downloadBtn.setAttribute('data-coin', originalBtn.getAttribute('data-coin'));
-                downloadBtn.setAttribute('data-url', originalBtn.getAttribute('data-url'));
-            }
-            
-            appDetailsModal.showModal();
+      // Basit notify işlevi (demo)
+      window.notify = function(){
+        const mail = document.getElementById('mail').value;
+        if(mail && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
+          alert('Lütfen geçerli bir e-posta gir.');return;
         }
-        
-        function startDownload(appName, coinValue, url) {
-            if (downloadInProgress) return;
-            
-            downloadInProgress = true;
-            downloadingAppName.textContent = appName + " yükleniyor";
-            coinEarnText.textContent = `+${coinValue} Coin kazanacaksınız`;
-            
-            // Reset progress
-            progressBar.style.width = '0%';
-            progressText.textContent = '0%';
-            
-            // Show modal
-            downloadModal.showModal();
-            
-            // Simulate download progress
-            let progress = 0;
-            progressInterval = setInterval(() => {
-                progress += Math.random() * 10;
-                if (progress > 100) progress = 100;
-                
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `${Math.floor(progress)}%`;
-                
-                if (progress === 100) {
-                    clearInterval(progressInterval);
-                    setTimeout(() => {
-                        downloadModal.close();
-                        completeDownload(coinValue, url);
-                    }, 500);
-                }
-            }, 200);
-        }
-        
-        function cancelDownload() {
-            clearInterval(progressInterval);
-            downloadInProgress = false;
-            downloadModal.close();
-            Swal.fire('İndirme iptal edildi', '', 'info');
-        }
-        
-        function completeDownload(coinValue, url) {
-            downloadInProgress = false;
-            
-            // Add coins
-            coinBalance += parseInt(coinValue);
-            coinBalanceElement.innerHTML = `Coinlerim: <span class="badge">${coinBalance}</span>`;
-            
-            // Show success message
-            Swal.fire({
-                title: 'Başarılı!',
-                html: `+${coinValue} Coin kazandınız!<br>Toplam Coin: ${coinBalance}`,
-                icon: 'success'
-            });
-            
-            // Start actual download
-            setTimeout(() => {
-                window.location.href = url;
-            }, 1500);
-        }
-        
-        function showUploadModal() {
-            uploadModal.showModal();
-        }
-        
-        function uploadApp() {
-            uploadModal.close();
-            Swal.fire({
-                title: 'Başarılı!',
-                text: 'Uygulamanız incelenmek üzere gönderildi',
-                icon: 'success'
-            });
-        }
-        
-        function filterByCategory(category) {
-            // In a real app, this would filter the app list
-            Swal.fire({
-                title: `${category} kategorisi seçildi`,
-                text: 'Uygulamalar filtrelenecek',
-                icon: 'info'
-            });
-        }
-        
-        function showNotification() {
-            Swal.fire({
-                title: 'Bildirimler',
-                html: `
-                    <div class="text-left">
-                        <p class="py-2 border-b border-gray-700">Yeni sürüm mevcut!</p>
-                        <p class="py-2">Dinazor Oyunu güncellendi</p>
-                    </div>
-                `,
-                confirmButtonText: 'Tamam'
-            });
-        }
-        
-        function showRandomApp() {
-            const apps = [
-                {name: "GenişKapı Browser", icon: "https://placehold.co/100x100/8b5cf6/white?text=GK+Browser"},
-                {name: "Dinazor Oyunu RTX", icon: "https://placehold.co/100x100/ec4899/white?text=Dino+RTX"},
-                {name: "Simple Keyboard", icon: "https://placehold.co/100x100/3b82f6/white?text=Simple+KB"}
-            ];
-            
-            const randomApp = apps[Math.floor(Math.random() * apps.length)];
-            
-            Swal.fire({
-                title: 'Şanslı Uygulamanız!',
-                html: `
-                    <div class="text-center py-4">
-                        <img src="${randomApp.icon}" class="w-20 h-20 mx-auto rounded-xl mb-4">
-                        <h3 class="font-bold text-lg">${randomApp.name}</h3>
-                        <p class="text-gray-400 mt-2">Bu uygulamayı indirmek ister misiniz?</p>
-                    </div>
-                `,
-                showCancelButton: true,
-                confirmButtonText: 'İndir',
-                cancelButtonText: 'Vazgeç'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Simulate download for random app
-                    const downloadBtn = document.querySelector(`.download-btn[data-name="${randomApp.name}"]`);
-                    if (downloadBtn) {
-                        downloadBtn.click();
-                    }
-                }
-            });
-        }
-    </script>
-</body>
+        alert(mail? 'Teşekkürler! E-posta listesine eklendiniz.' : 'Teşekkürler! Haberdar edeceğiz.');
+        document.getElementById('mail').value = '';
+      }
+
+      // Partikler için basit hareket
+      document.querySelectorAll('.p').forEach((el,i)=>{
+        const dx = (Math.random()-0.5)*20; const dy = (Math.random()-0.5)*20;
+        el.animate([{transform:'translate(0,0)'},{transform:`translate(${dx}px,${dy}px)`},{transform:'translate(0,0)'}],{duration:4000+Math.random()*6000,iterations:Infinity,easing:'ease-in-out',direction:'alternate'});
+      });
+    })();
+  </script></body>
 </html>
