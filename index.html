@@ -1,170 +1,177 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Yapım Aşamasında</title>
-  <meta name="description" content="Buzlu cam (frosted glass) temalı 'Yapım Aşamasında' sayfası. Hızlıca kullanıma hazır, mobil uyumlu." />
-  <style>
-    :root{
-      --bg1:#0f172a; /* gece mavisi */
-      --bg2:#071029; /* koyu */
-      --accent: rgba(255,255,255,0.9);
-      --glass: rgba(255,255,255,0.08);
-      --glass-2: rgba(255,255,255,0.12);
-      --glass-border: rgba(255,255,255,0.18);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
-    body{
-      display:flex;align-items:center;justify-content:center;
-      background: linear-gradient(135deg,var(--bg1),var(--bg2));
-      color:var(--accent);
-      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-      padding:32px;
-      background-attachment:fixed;
-      overflow:hidden;
-    }/* Hafif doku arka plan */
-.grain{
-  position:fixed;inset:0;pointer-events:none;opacity:0.06;background-image:radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);background-size:3px 3px;mix-blend-mode:overlay;
-}
-
-.wrap{
-  width:min(960px,96%);
-  display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;
-}
-
-/* Mobilde tek kolon */
-@media (max-width:820px){
-  .wrap{grid-template-columns:1fr;}
-}
-
-.panel{
-  padding:28px;border-radius:18px;background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.02));
-  border:1px solid var(--glass-border);backdrop-filter:blur(10px) saturate(120%);
-  box-shadow:0 8px 30px rgba(2,6,23,0.6);
-}
-
-header h1{margin:0 0 8px;font-size:clamp(20px,3vw,32px);letter-spacing:0.6px}
-header p{margin:0;color:rgba(255,255,255,0.78)}
-
-.art{
-  display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;padding:36px;border-radius:16px;height:100%;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border:1px solid rgba(255,255,255,0.04);
-}
-
-/* İnşa ikonu */
-.gear{width:120px;height:120px;display:grid;place-items:center}
-.gear svg{width:100%;height:100%;filter:drop-shadow(0 6px 18px rgba(2,6,23,0.6));}
-
-/* Dönen dişli animasyonu */
-.spin{animation:spin 6s linear infinite}
-@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-
-.shine-title{
-  display:inline-block;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.12));
-  box-shadow:0 6px 18px rgba(2,6,23,0.6) inset;
-  position:relative;overflow:hidden
-}
-.shine-title:after{
-  content:"";position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);animation:glint 3s linear infinite
-}
-@keyframes glint{to{transform:translateX(120%)}}
-
-.progress{height:12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));overflow:hidden;border:1px solid rgba(255,255,255,0.04)}
-.progress > i{display:block;height:100%;width:0%;background:linear-gradient(90deg, rgba(255,255,255,0.14), rgba(255,255,255,0.24));transition:width 800ms cubic-bezier(.2,.9,.2,1)}
-
-/* Form */
-.notify{display:flex;gap:8px;margin-top:14px}
-.notify input{flex:1;padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--accent);outline:none}
-.notify button{padding:10px 14px;border-radius:999px;border:none;background:rgba(255,255,255,0.14);backdrop-filter:blur(4px);cursor:pointer}
-.notify button:active{transform:translateY(1px)}
-
-.meta{margin-top:18px;color:rgba(255,255,255,0.6);font-size:14px}
-
-/* Alt not */
-footer{grid-column:1/-1;margin-top:12px;text-align:center;color:rgba(255,255,255,0.5);font-size:13px}
-
-.particles{position:fixed;inset:0;pointer-events:none;mix-blend-mode:screen}
-.p{position:absolute;border-radius:50%;opacity:0.9;background:rgba(255,255,255,0.04);backdrop-filter:blur(2px)}
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yapım Aşamasında</title>
+<style>
+  /* Arka plan için koyu gece degrade */
+  body {
+    margin: 0; height: 100vh; 
+    background: linear-gradient(135deg, #0b1426, #040914);
+    display: flex; justify-content: center; align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #f0f4f8;
+    overflow: hidden;
+  }
+  /* Buzlu cam panel */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 40px 36px;
+    width: 90vw; max-width: 460px;
+    backdrop-filter: blur(14px) saturate(180%) brightness(120%);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    box-shadow:
+      0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Başlık ve hafif glow */
+  h1 {
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    text-align: center;
+    text-shadow: 0 0 6px rgba(255 255 255 / 0.6);
+  }
+  /* Açıklama */
+  p {
+    text-align: center;
+    color: #d1d9e6cc;
+    font-size: 1rem;
+    margin: 0 0 30px 0;
+    line-height: 1.4;
+  }
+  /* İlerleme çubuğu dışı */
+  .progress-bar {
+    width: 100%;
+    height: 14px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 9999px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 6px rgba(255,255,255,0.15);
+    margin-bottom: 25px;
+  }
+  /* İlerleme çubuğu içi (animasyonlu) */
+  .progress-bar > div {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #84fab0, #8fd3f4);
+    border-radius: 9999px;
+    box-shadow: 0 0 8px #7fffd4cc;
+    transition: width 0.7s ease-out;
+  }
+  /* Buton ve input yan yana */
+  form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  input[type=email] {
+    flex-grow: 1;
+    padding: 12px 16px;
+    border-radius: 9999px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.12);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  input[type=email]:focus {
+    border-color: #84fab0;
+    background: rgba(255,255,255,0.18);
+  }
+  button {
+    padding: 12px 20px;
+    border-radius: 9999px;
+    border: none;
+    background: #8fd3f4;
+    color: #040914;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 12px #84fab0cc;
+    transition: background 0.3s;
+  }
+  button:hover {
+    background: #84fab0;
+  }
+  /* Alt bilgi */
+  small {
+    display: block;
+    margin-top: 28px;
+    text-align: center;
+    color: #9bb1c0aa;
+    font-size: 0.9rem;
+  }
+  /* Hafif parlayan animasyon - başlık üzerine */
+  @keyframes shine {
+    0%, 100% {text-shadow: 0 0 8px rgba(132, 250, 176, 0.8);}
+    50% {text-shadow: 0 0 16px rgba(143, 211, 244, 1);}
+  }
+  h1 {
+    animation: shine 3.5s ease-in-out infinite;
+  }
+  /* Basit kristal partiküller */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .particle {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: rgba(132, 250, 176, 0.35);
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: float 6s ease-in-out infinite;
+  }
+  .particle:nth-child(2) {
+    width: 8px; height: 8px;
+    animation-delay: 1.5s;
+    background: rgba(143, 211, 244, 0.35);
+  }
+  .particle:nth-child(3) {
+    width: 5px; height: 5px;
+    animation-delay: 3s;
+    background: rgba(132, 250, 176, 0.25);
+  }
+  @keyframes float {
+    0%, 100% {transform: translateY(0);}
+    50% {transform: translateY(-15px);}
+  }
+</style>
 </head>
 <body>
-  <div class="grain"></div>
-  <div class="particles" aria-hidden="true">
-    <!-- birkaç hafif buz partikülü (sadece dekoratif) -->
-    <span class="p" style="width:14px;height:14px;left:8%;top:12%;transform:translateY(0);"></span>
-    <span class="p" style="width:8px;height:8px;left:72%;top:20%;"></span>
-    <span class="p" style="width:22px;height:22px;left:52%;top:68%;"></span>
-    <span class="p" style="width:10px;height:10px;left:28%;top:44%;"></span>
-  </div>  <main class="wrap">
-    <section class="panel">
-      <header>
-
+  <main class="glass-panel" role="main" aria-label="Yapım aşamasında sayfası">
+    <h1><br>  🚧Yapım Aşamasında 🚧</h1>
+    <p>Sabırla bekle, yakında harika bir şeyler geliyor!</p>
+    <div class="progress-bar" aria-label="İlerleme durumu">
+      <div id="progress"></div>
+    </div>
+    <h6>YÖNETİCİ:🟢AKTİF </h6>
     </form>
-<aside class="art panel">
-  <div class="gear spin" aria-hidden="true">
-    <!-- Basit inşa ikonu: vidalı dişli + tornavida -->
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M32 7v6" stroke="white" stroke-opacity="0.9" stroke-width="2.8" stroke-linecap="round"/>
-      <circle cx="32" cy="32" r="12" stroke="white" stroke-opacity="0.9" stroke-width="2.6"></circle>
-      <path d="M32 20v-4" stroke="white" stroke-opacity="0.8" stroke-width="1.6" stroke-linecap="round"/>
-      <path d="M44 28l8-4" stroke="white" stroke-opacity="0.85" stroke-width="2.2" stroke-linecap="round"/>
-      <path d="M12 44l6 6" stroke="white" stroke-opacity="0.85" stroke-width="2.2" stroke-linecap="round"/>
-    </svg>
+    <small>© 2025 GenişKapı Şirketi — Tüm hakları saklıdır.</small>
+  </main>
+  <div class="particles" aria-hidden="true">
+    <span class="particle" style="top: 15%; left: 12%; animation-delay: 0s;"></span>
+    <span class="particle" style="top: 40%; left: 80%; animation-delay: 1.5s;"></span>
+    <span class="particle" style="top: 70%; left: 45%; animation-delay: 3s;"></span>
   </div>
+  <script>
+    // İlerleme animasyonu
+    const progress = document.getElementById('progress');
+    let width = 0;
+    function progressAnim() {
+      if (width >= 90) return;
+      width += 1 + Math.random()*2;
+      progress.style.width = width + '%';
+      setTimeout(progressAnim, 80);
+    }
+    progressAnim();
 
-  <div style="text-align:center">
-    <h3 style="margin:6px 0 0">Çok yakında</h3>
-    <p style="opacity:0.8;margin:6px 0 0">İçerik hazırlanıyor — sabrın için teşekkürler.</p>
-  </div>
-
-</aside>
-
-<footer>© <span id="year"></span> GenişKapı Şirketi — Tüm hakları saklıdır</footer>
-
-  </main>  <script>
-    // Basit progress animasyonu ve ETA hesaplama
-    (function(){
-      const bar = document.getElementById('bar');
-      const eta = document.getElementById('eta');
-      const year = document.getElementById('year');
-      year.textContent = new Date().getFullYear();
-
-      let pct = 0; // başlangıç
-      const target = 62 + Math.floor(Math.random()*30); // 62-91 arası demo tamamlanma
-      const start = Date.now();
-      const duration = 2500 + Math.random()*2000;
-
-      function step(){
-        pct += (target - pct) * 0.12;
-        if(Math.abs(target - pct) < 0.4) pct = target;
-        bar.style.width = Math.min(100, pct) + '%';
-        const remainingMs = Math.max(0,(1 - pct/100) * 7 * 24 * 3600 * 1000); // gösterişli: haftalar
-        const days = Math.ceil(remainingMs / (24*3600*1000));
-        eta.textContent = (pct>=100)? 'Tamamlandı' : (days>30? days+' gün' : days+' gün');
-        if(pct < target) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-
-      // Basit notify işlevi (demo)
-      window.notify = function(){
-        const mail = document.getElementById('mail').value;
-        if(mail && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
-          alert('Lütfen geçerli bir e-posta gir.');return;
-        }
-        alert(mail? 'Teşekkürler! E-posta listesine eklendiniz.' : 'Teşekkürler! Haberdar edeceğiz.');
-        document.getElementById('mail').value = '';
-      }
-
-      // Partikler için basit hareket
-      document.querySelectorAll('.p').forEach((el,i)=>{
-        const dx = (Math.random()-0.5)*20; const dy = (Math.random()-0.5)*20;
-        el.animate([{transform:'translate(0,0)'},{transform:`translate(${dx}px,${dy}px)`},{transform:'translate(0,0)'}],{duration:4000+Math.random()*6000,iterations:Infinity,easing:'ease-in-out',direction:'alternate'});
-      });
-    })();
-  </script></body>
-</html>
+  </script>
+</body>
+</html</html>
