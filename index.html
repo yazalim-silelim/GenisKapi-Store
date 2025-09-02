@@ -1,177 +1,662 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Yapım Aşamasında</title>
-<style>
-  /* Arka plan için koyu gece degrade */
-  body {
-    margin: 0; height: 100vh; 
-    background: linear-gradient(135deg, #0b1426, #040914);
-    display: flex; justify-content: center; align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #f0f4f8;
-    overflow: hidden;
-  }
-  /* Buzlu cam panel */
-  .glass-panel {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 40px 36px;
-    width: 90vw; max-width: 460px;
-    backdrop-filter: blur(14px) saturate(180%) brightness(120%);
-    border: 1.5px solid rgba(255,255,255,0.12);
-    box-shadow:
-      0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    position: relative;
-    overflow: hidden;
-  }
-  /* Başlık ve hafif glow */
-  h1 {
-    margin: 0 0 10px 0;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    text-align: center;
-    text-shadow: 0 0 6px rgba(255 255 255 / 0.6);
-  }
-  /* Açıklama */
-  p {
-    text-align: center;
-    color: #d1d9e6cc;
-    font-size: 1rem;
-    margin: 0 0 30px 0;
-    line-height: 1.4;
-  }
-  /* İlerleme çubuğu dışı */
-  .progress-bar {
-    width: 100%;
-    height: 14px;
-    background: rgba(255,255,255,0.12);
-    border-radius: 9999px;
-    overflow: hidden;
-    box-shadow: inset 0 2px 6px rgba(255,255,255,0.15);
-    margin-bottom: 25px;
-  }
-  /* İlerleme çubuğu içi (animasyonlu) */
-  .progress-bar > div {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #84fab0, #8fd3f4);
-    border-radius: 9999px;
-    box-shadow: 0 0 8px #7fffd4cc;
-    transition: width 0.7s ease-out;
-  }
-  /* Buton ve input yan yana */
-  form {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-  }
-  input[type=email] {
-    flex-grow: 1;
-    padding: 12px 16px;
-    border-radius: 9999px;
-    border: 1.5px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.12);
-    color: white;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  input[type=email]:focus {
-    border-color: #84fab0;
-    background: rgba(255,255,255,0.18);
-  }
-  button {
-    padding: 12px 20px;
-    border-radius: 9999px;
-    border: none;
-    background: #8fd3f4;
-    color: #040914;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 0 12px #84fab0cc;
-    transition: background 0.3s;
-  }
-  button:hover {
-    background: #84fab0;
-  }
-  /* Alt bilgi */
-  small {
-    display: block;
-    margin-top: 28px;
-    text-align: center;
-    color: #9bb1c0aa;
-    font-size: 0.9rem;
-  }
-  /* Hafif parlayan animasyon - başlık üzerine */
-  @keyframes shine {
-    0%, 100% {text-shadow: 0 0 8px rgba(132, 250, 176, 0.8);}
-    50% {text-shadow: 0 0 16px rgba(143, 211, 244, 1);}
-  }
-  h1 {
-    animation: shine 3.5s ease-in-out infinite;
-  }
-  /* Basit kristal partiküller */
-  .particles {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: visible;
-  }
-  .particle {
-    position: absolute;
-    width: 6px; height: 6px;
-    background: rgba(132, 250, 176, 0.35);
-    border-radius: 50%;
-    filter: blur(1px);
-    animation: float 6s ease-in-out infinite;
-  }
-  .particle:nth-child(2) {
-    width: 8px; height: 8px;
-    animation-delay: 1.5s;
-    background: rgba(143, 211, 244, 0.35);
-  }
-  .particle:nth-child(3) {
-    width: 5px; height: 5px;
-    animation-delay: 3s;
-    background: rgba(132, 250, 176, 0.25);
-  }
-  @keyframes float {
-    0%, 100% {transform: translateY(0);}
-    50% {transform: translateY(-15px);}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenişKapı Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --background: #f8f9fa;
+            --surface: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border: #dee2e6;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+            --header-height: 70px;
+        }
+
+        .dark-theme {
+            --primary: #5a72e9;
+            --primary-dark: #4c67d6;
+            --secondary: #8b2fc9;
+            --accent: #ff4da6;
+            --background: #121212;
+            --surface: #1e1e1e;
+            --text-primary: #e6e6e6;
+            --text-secondary: #a0a0a0;
+            --border: #2d2d2d;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        /* Header Styles */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            box-shadow: var(--shadow-sm);
+            padding: 0 1.5rem;
+            height: var(--header-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        #search {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 3rem;
+            border: none;
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--shadow-sm);
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        #search:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        #search::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* App Grid */
+        .app-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .app {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .app-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0 0 0 var(--radius);
+        }
+
+        .app img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border-radius: 18px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .app strong {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .app p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Details View */
+        .details {
+            display: none;
+            padding: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .details-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .details-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .details-title {
+            flex: 1;
+        }
+
+        .details-title h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .details-title p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .screenshot {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .versions {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .version-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .version-item:last-child {
+            border-bottom: none;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .download-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Buttons */
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .icon-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.2rem;
+            background: var(--surface);
+            color: var(--text-primary);
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Settings */
+        #settingsMenu {
+            position: fixed;
+            top: calc(var(--header-height) + 10px);
+            right: 1rem;
+            background: var(--surface);
+            padding: 1.2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 101;
+            width: 220px;
+            display: none;
+            transform-origin: top right;
+            animation: scaleIn 0.2s ease;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--text-secondary);
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+            
+            .details-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .screenshots {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            header {
+                padding: 0 1rem;
+            }
+            
+            .logo span {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .search-container {
+                margin: 1rem auto;
+            }
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius);
+        }
+
+        .dark-theme .skeleton {
+            background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+            background-size: 200% 100%;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
 </head>
 <body>
-  <main class="glass-panel" role="main" aria-label="Yapım aşamasında sayfası">
-    <h1><br>  🚧Yapım Aşamasında 🚧</h1>
-    <p>Sabırla bekle, yakında harika bir şeyler geliyor!</p>
-    <div class="progress-bar" aria-label="İlerleme durumu">
-      <div id="progress"></div>
-    </div>
-    <h6>YÖNETİCİ:🟢AKTİF </h6>
-    </form>
-    <small>© 2025 GenişKapı Şirketi — Tüm hakları saklıdır.</small>
-  </main>
-  <div class="particles" aria-hidden="true">
-    <span class="particle" style="top: 15%; left: 12%; animation-delay: 0s;"></span>
-    <span class="particle" style="top: 40%; left: 80%; animation-delay: 1.5s;"></span>
-    <span class="particle" style="top: 70%; left: 45%; animation-delay: 3s;"></span>
-  </div>
-  <script>
-    // İlerleme animasyonu
-    const progress = document.getElementById('progress');
-    let width = 0;
-    function progressAnim() {
-      if (width >= 45) return;
-      width += 1 + Math.random()*2;
-      progress.style.width = width + '%';
-      setTimeout(progressAnim, 80);
-    }
-    progressAnim();
+    <header>
+        <div class="logo">
+            <i class="fas fa-store"></i>
+            <span>GenişKapı Store</span>
+        </div>
+        <div class="header-actions">
+            <button id="themeToggle" class="icon-btn">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="settings" class="icon-btn">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </header>
 
-  </script>
+    <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="search" placeholder="Uygulama ara..." oninput="searchApps()">
+    </div>
+
+    <div class="app-list" id="app-list"></div>
+
+    <div class="details" id="details">
+        <button class="back-btn" onclick="backToList()">
+            <i class="fas fa-arrow-left"></i> Geri
+        </button>
+        <div id="details-content"></div>
+    </div>
+
+    <div id="settingsMenu">
+        <div class="settings-item">
+            <span>Koyu Tema</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <script src="apps.js"></script>
+
+    <script>
+        const appListEl = document.getElementById('app-list');
+        const detailsEl = document.getElementById('details');
+        const detailsContent = document.getElementById('details-content');
+        const settingsBtn = document.getElementById('settings');
+        const settingsMenu = document.getElementById('settingsMenu');
+        const themeToggle = document.getElementById('themeToggle');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        let sliderInterval;
+
+        // Initialize theme
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-theme');
+            darkModeToggle.checked = true;
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        // Uygulama listesi
+        function displayApps(appArray) {
+            appListEl.innerHTML = '';
+            
+            if (appArray.length === 0) {
+                appListEl.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                        <h3>Uygulama bulunamadı</h3>
+                        <p style="color: var(--text-secondary);">Arama kriterlerinize uygun uygulama bulunamadı.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            appArray.forEach(app => {
+                const div = document.createElement('div');
+                div.className = 'app fade-in';
+                div.innerHTML = `
+                    ${app.featured ? '<div class="app-badge">Öne Çıkan</div>' : ''}
+                    <img src="${app.icon}" alt="${app.name}" loading="lazy">
+                    <strong>${app.name}</strong>
+                    <p>${app.summary}</p>
+                `;
+                div.onclick = () => showDetails(app);
+                appListEl.appendChild(div);
+            });
+        }
+
+        // Detay sayfası
+        function showDetails(app) {
+            let html = `
+                <div class="details-header">
+                    <img src="${app.icon}" alt="${app.name}">
+                    <div class="details-title">
+                        <h1>${app.name}</h1>
+                        <p>${app.summary}</p>
+                    </div>
+                </div>
+                <p>${app.description || 'Açıklama mevcut değil.'}</p>
+            `;
+            
+            if (app.screenshots && app.screenshots.length > 0) {
+                html += `<h2 style="margin: 2rem 0 1rem;">Ekran Görüntüleri</h2>
+                         <div class="screenshots">`;
+                app.screenshots.forEach(s => {
+                    html += `<div class="screenshot"><img src="${s}" loading="lazy"></div>`;
+                });
+                html += `</div>`;
+            }
+            
+            if (app.versions) {
+                html += `<div class="versions">
+                         <h2 style="margin-bottom: 1rem;">Sürümler</h2>`;
+                app.versions.forEach(v => {
+                    html += `<div class="version-item">
+                             <div>
+                                 <strong>${v.version}</strong>
+                                 <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.2rem;">${v.releaseDate || ''}</p>
+                             </div>
+                             <a href="${v.apk}" class="download-btn" target="_blank">
+                                 <i class="fas fa-download"></i> İndir
+                             </a>
+                         </div>`;
+                });
+                html += `</div>`;
+            }
+            
+            detailsContent.innerHTML = html;
+            appListEl.style.display = 'none';
+            detailsEl.style.display = 'block';
+            
+            // Sayfayı yukarı kaydır
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToList() {
+            detailsEl.style.display = 'none';
+            appListEl.style.display = 'grid';
+        }
+
+        // Arama
+        function searchApps() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const filtered = Object.values(apps).filter(a => 
+                a.name.toLowerCase().includes(query) || 
+                a.summary.toLowerCase().includes(query) ||
+                (a.tags && a.tags.some(tag => tag.toLowerCase().includes(query)))
+            );
+            displayApps(filtered);
+        }
+
+        // Tema değiştirme
+        themeToggle.onclick = function() {
+            document.body.classList.toggle('dark-theme');
+            const isDarkMode = document.body.classList.contains('dark-theme');
+            localStorage.setItem('darkMode', isDarkMode);
+            this.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            darkModeToggle.checked = isDarkMode;
+        }
+
+        darkModeToggle.onchange = function() {
+            document.body.classList.toggle('dark-theme', this.checked);
+            localStorage.setItem('darkMode', this.checked);
+            themeToggle.innerHTML = this.checked ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+
+        // Ayarlar menüsü
+        settingsBtn.onclick = () => {
+            settingsMenu.style.display = settingsMenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Dışarı tıklanınca ayarlar menüsünü kapat
+        document.addEventListener('click', (e) => {
+            if (!settingsBtn.contains(e.target) && !settingsMenu.contains(e.target)) {
+                settingsMenu.style.display = 'none';
+            }
+        });
+
+        // Sayfa yüklendiğinde uygulamaları göster
+        document.addEventListener('DOMContentLoaded', () => {
+            displayApps(Object.values(apps));
+        });
+    </script>
 </body>
 </html>
