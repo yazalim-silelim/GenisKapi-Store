@@ -515,7 +515,7 @@
         </div>
     </div>
 
-    <script src="apps.js"></script>
+    <!-- apps.js replaced by dynamic apps.json fetch -->
 
     <script>
         const appListEl = document.getElementById('app-list');
@@ -653,9 +653,20 @@
             }
         });
 
-        // Sayfa yüklendiğinde uygulamaları göster
-        document.addEventListener('DOMContentLoaded', () => {
-            displayApps(Object.values(apps));
+        // Sayfa yüklendiğinde apps.json'u yükle ve listeyi göster
+        let apps = {};
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('apps.json', { cache: 'no-store' });
+                apps = await res.json();
+                displayApps(Object.values(apps));
+            } catch (e) {
+                console.error('apps.json yüklenemedi', e);
+                appListEl.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                    <h3>Veri yüklenemedi</h3>
+                    <p style="color: var(--text-secondary);">Lütfen daha sonra tekrar deneyin.</p>
+                </div>`;
+            }
         });
     </script>
 </body>

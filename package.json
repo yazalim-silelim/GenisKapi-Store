@@ -1,0 +1,12 @@
+{
+  "name": "geniskapi-store",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:apps": "node scripts/generate-apps-json.mjs"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
